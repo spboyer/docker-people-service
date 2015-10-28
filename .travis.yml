@@ -7,5 +7,7 @@ services:
 
 before_install:
     - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-    - docker build --no-cache -t spboyer/people-service .
+
+script:
+    - docker build -t spboyer/people-service .
     - docker push spboyer/people-service
