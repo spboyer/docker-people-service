@@ -9,6 +9,9 @@ before_install:
     - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 
 script:
+    #build the image
     - docker build -t spboyer/people-service .
+    #tag the build
     - docker tag spboyer/people-service:latest spboyer/people-service:v3
+    #push the image to the repository
     - docker push spboyer/people-service
