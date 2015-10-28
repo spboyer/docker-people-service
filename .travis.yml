@@ -10,4 +10,5 @@ before_install:
 
 script:
     - docker build -t spboyer/people-service .
+    - docker tag spboyer/people-service:latest spboyer/people-service:v3
     - docker push spboyer/people-service
