@@ -2,6 +2,11 @@ sudo: required
 
 language: ruby
 
+# whitelist
+branches:
+  only:
+    - master
+
 services:
     - docker
 
@@ -14,4 +19,4 @@ script:
     #tag the build
     - docker tag spboyer/people-service:latest spboyer/people-service:v2
     #push the image to the repository
-    if [ $TRAVIS_BRANCH = 'master' ]; docker push spboyer/people-service; fi
+    - docker push spboyer/people-service
