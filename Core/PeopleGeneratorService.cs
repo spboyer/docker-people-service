@@ -3,7 +3,12 @@ using System.Collections.Generic;
 
 namespace docker_people_service.Core
 {
-    public class PeopleGeneratorService
+    public interface IPeopleGeneratorService
+    {
+        PersonMajor[] GenerateMajorPeople(int numberOfPeople);
+    }
+    
+    public class PeopleGeneratorService : IPeopleGeneratorService
     {
         private static string[] LastNames = new string[] { "Lockrem", "Black", "Milfert", "Smith", "Jones", "Johnson", "Peterson", "Jameson", "Boyer", "Roy" };
         private static string[] FirstNames = new string[] { "William", "Matt", "Lisa", "Arianna", "Kristina", "Tyler", "Ryan", "Dylan", "Abby", "Kayla", "Kirsty", "Shayne" };

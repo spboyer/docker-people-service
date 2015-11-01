@@ -10,37 +10,40 @@ namespace docker_people_service.Controllers
     [RouteAttribute("api/[controller]")]
     public class PeopleController : Controller
     {
-        private PeopleGeneratorService _personGenerator = new PeopleGeneratorService();
-        private PersonMajor[] _lastResult;
+        private IPeopleGeneratorService _personGenerator;
+        private IPeopleCacheService _cache;
 
-        public PeopleController()
+        public PeopleController(IPeopleCacheService cacheService, IPeopleGeneratorService generatorService)
         {
-
+            _cache = cacheService;
+            _personGenerator = generatorService;
         }
 
         // GET: api/people/
         [HttpGet]
         public docker_people_service.PersonMajor[] Get()
         {
-            LoadPeople();
-            return _lastResult;
+           return LoadPeople();
         }
 
         // GET: api/people/1
         [HttpGet("{id}")]
         public docker_people_service.PersonMajor Get(int id)
         {
-            if (_lastResult == null)
-            {
-                LoadPeople();
-            }
-            return _lastResult.SingleOrDefault(p => p.Id == id);
+            var people = LoadPeople();
+            return people.SingleOrDefault(p => p.Id == id);
         }
 
-        private void LoadPeople()
+        private PersonMajor[] LoadPeople()
         {
-            var people = _personGenerator.GenerateMajorPeople(50);
-            _lastResult = people;
+            var result = _cache.GetPeople();
+            if (result == null)
+            {
+                result = _personGenerator.GenerateMajorPeople(50);
+                _cache.SavePeople(result);
+            }
+
+            return result;
         }
 
     }
