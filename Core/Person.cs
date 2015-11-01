@@ -1,8 +1,6 @@
-using System;
-
 namespace docker_people_service
 {
-     public class Person
+    public class Person
     {
         public int Id { get; set; }
         public string First { get; set; }
@@ -33,5 +31,5 @@ namespace docker_people_service
         public string ItemPhoneNumberData2 { get { return "111-222-3434"; } set { } }
     }
 
-    
+
 }
