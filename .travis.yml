@@ -1,6 +1,9 @@
 sudo: required
 
-language: ruby
+language: charp
+
+mono:
+  - 4.0.1
 
 # whitelist
 branches:
