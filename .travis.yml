@@ -1,6 +1,6 @@
 sudo: required
 
-language: charp
+language: csharp
 
 mono:
   - 4.0.1
