@@ -1,6 +1,9 @@
 sudo: required
 
-language: ruby
+language: csharp
+
+mono:
+  - 4.0.1
 
 # whitelist
 branches:
