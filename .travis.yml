@@ -17,6 +17,6 @@ script:
     #build the image
     - docker build --no-cache -t spboyer/people-service .
     #tag the build
-    - docker tag spboyer/people-service:latest spboyer/people-service:v2
+    - docker tag spboyer/people-service:latest spboyer/people-service:v4
     #push the image to the repository
-    - docker push spboyer/people-service
+    - docker push spboyer/people-service:v4
