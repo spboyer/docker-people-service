@@ -23,6 +23,7 @@ namespace docker_people_service.Controllers
         [HttpGet]
         public docker_people_service.PersonMajor[] Get()
         {
+            Response.Headers.Add("SERVICE_GUID", _cache.GetServiceGUID());
            return LoadPeople();
         }
 
@@ -30,6 +31,8 @@ namespace docker_people_service.Controllers
         [HttpGet("{id}")]
         public docker_people_service.PersonMajor Get(int id)
         {
+            Response.Headers.Add("SERVICE_GUID", _cache.GetServiceGUID());
+
             var people = LoadPeople();
             return people.SingleOrDefault(p => p.Id == id);
         }

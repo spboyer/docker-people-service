@@ -7,6 +7,8 @@ namespace docker_people_service.Core
     {
         PersonMajor[] GetPeople();
         void SavePeople(object people);
+        string GetServiceGUID();
+
     }
     public class PeopleCacheService : IPeopleCacheService
     {
@@ -38,6 +40,24 @@ namespace docker_people_service.Core
                             new MemoryCacheEntryOptions()
                             .SetSlidingExpiration(TimeSpan.FromMinutes(5))
                             .SetAbsoluteExpiration(DateTimeOffset.UtcNow.AddMinutes(10)));
+        }
+
+        public string GetServiceGUID()
+        {
+            var service_key = "service_guid";
+            object guid = cache.Get(service_key);
+            if (guid == null)
+            {
+                guid = Guid.NewGuid();
+                cache.Set(
+                            service_key,
+                            guid,
+                            new MemoryCacheEntryOptions()
+                            .SetSlidingExpiration(TimeSpan.FromMinutes(5))
+                            .SetAbsoluteExpiration(DateTimeOffset.UtcNow.AddMinutes(10)));
+            }
+
+            return guid.ToString();
         }
     }
 }
